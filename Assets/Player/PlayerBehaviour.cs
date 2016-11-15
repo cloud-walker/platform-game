@@ -3,17 +3,33 @@ using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour {
 	Rigidbody2D rb;
+	float moveForce = 3f;
+	float jumpForce = 500f;
+	bool isJumping = false;
 
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 	}
 
-  void FixedUpdate() {
-    float x = Input.GetAxis("Horizontal");
-    float y = Input.GetAxis("Vertical");
+	void FixedUpdate() {
+		float h = Input.GetAxis("Horizontal");
+		float v = Input.GetAxis("Vertical");
 
-    Vector2 movement = new Vector2(x, y);
+		if (h > 0) {
+			rb.velocity = new Vector2(moveForce, rb.velocity.y);
+		} else if (h < 0) {
+			rb.velocity = new Vector2(-moveForce, rb.velocity.y);
+		} else {
+			rb.velocity = new Vector2(0, rb.velocity.y);
+		}
 
-    rb.AddForce(movement * 100);
-  }
+		if (v > 0 && !isJumping) {
+			rb.AddForce(new Vector2(0f, jumpForce));
+			isJumping = true;
+		}
+
+		if (v == 0) {
+			isJumping = false;
+		}
+	}
 }
