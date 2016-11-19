@@ -1,3 +1,15 @@
 # Unity
 Temp/
 Library/
+
+# Visual Studio / Mono Develop
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
